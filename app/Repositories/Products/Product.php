@@ -19,20 +19,13 @@ class Product extends BaseRepository
             'user_id' => 'required|exists:users,id',
             'manufacture_year' => 'required|integer|between:1900,'.date('Y')
         ];
-        $images = [];
-
-        if (isset($data['images']) && sizeof($data['images']) > 0) {
-            foreach($data['images'] as $image) {
-
-                if ($image != null) {
-
-                    $name = uniqid() . '_' . $image->getClientOriginalName();
-                    $images[] = $name;
-                
-                    Storage::disk(static::$disk)->put("uploads/products/{$data['user_id']}/{$name}", File::get($image));
-                }
-            }
-            $data['images'] = $images;
+        
+        if (isset($data['photo'])) {
+            $file = $data['photo'];
+            $name = uniqid() . '_' . $file->getClientOriginalName();
+            // Store data
+            Storage::disk(static::$disk)->put("uploads/activity/{$data['user_id']}/{$name}", File::get($file));
+            $data['photo'] = $name;
         }
 
         return parent::save($data);
@@ -46,22 +39,12 @@ class Product extends BaseRepository
             'manufacture_year' => 'required|integer|between:1900,'.date('Y')
         ];
 
-        $images = [];
-
-        if (isset($data['images']) && sizeof($data['images']) > 0) {
-            foreach($data['images'] as $image) {
-                if ($image != null) {
-                    $name = uniqid() . '_' . $image->getClientOriginalName();
-                    $images[] = $name;
-                
-                    Storage::disk(static::$disk)->put("uploads/activity/{$data['user_id']}/{$name}", File::get($image));
-                }
-            }
-            $data['images'] = $images;
-        }
-        
-        if (sizeof($images) < 1) {
-            unset($data['images']);
+        if (isset($data['photo'])) {
+            $file = $data['photo'];
+            $name = uniqid() . '_' . $file->getClientOriginalName();
+            // Store data
+            Storage::disk(static::$disk)->put("uploads/activity/{$data['user_id']}/{$name}", File::get($file));
+            $data['photo'] = $name;
         }
 
         return parent::update($id, $data);
