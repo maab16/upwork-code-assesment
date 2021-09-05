@@ -1,3 +1,6 @@
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import store from './store';
+
 window._ = require('lodash');
 
 /**
@@ -20,8 +23,25 @@ try {
  */
 
 window.axios = require('axios');
-
+window.axios.defaults.withCredentials = true;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+
+// Request interceptor
+window.axios.interceptors.request.use(request => {
+    return request
+  })
+  
+  // Response interceptor
+  window.axios.interceptors.response.use(response => response, error => {
+    const { status } = error.response
+  
+    if (status === 401) {
+        store.dispatch('auth/login');
+    }
+  
+    // return Promise.reject(error)
+  })
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

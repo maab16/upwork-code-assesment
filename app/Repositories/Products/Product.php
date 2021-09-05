@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Products;
 
+use Illuminate\Support\Str;
 use App\Models\Product as Model;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\File;
@@ -17,15 +18,20 @@ class Product extends BaseRepository
         static::$rules['save'] = [
             'name' => 'required|unique:products,name,NULL,id,deleted_at,NULL',
             'user_id' => 'required|exists:users,id',
-            'manufacture_year' => 'required|integer|between:1900,'.date('Y')
+            'manufacture_year' => 'required|integer|between:1900,'.date('Y'),
         ];
         
-        if (isset($data['photo'])) {
+        if (isset($data['photo']) && $data['photo'] != 'null') {
             $file = $data['photo'];
-            $name = uniqid() . '_' . $file->getClientOriginalName();
+            $name = uniqid() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            $extenion = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+            $filename = $name . '.' . $extenion;
             // Store data
-            Storage::disk(static::$disk)->put("uploads/activity/{$data['user_id']}/{$name}", File::get($file));
-            $data['photo'] = $name;
+            Storage::disk(static::$disk)->put("uploads/products/{$data['user_id']}/{$filename}", File::get($file));
+            $data['photo'] = $filename;
+        } 
+        else {
+            unset($data['photo']);
         }
 
         return parent::save($data);
@@ -39,12 +45,17 @@ class Product extends BaseRepository
             'manufacture_year' => 'required|integer|between:1900,'.date('Y')
         ];
 
-        if (isset($data['photo'])) {
+        if (isset($data['photo']) && $data['photo'] != 'null') {
             $file = $data['photo'];
-            $name = uniqid() . '_' . $file->getClientOriginalName();
+            $name = uniqid() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            $extenion = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+            $filename = $name . '.' . $extenion;
             // Store data
-            Storage::disk(static::$disk)->put("uploads/activity/{$data['user_id']}/{$name}", File::get($file));
-            $data['photo'] = $name;
+            Storage::disk(static::$disk)->put("uploads/products/{$data['user_id']}/{$filename}", File::get($file));
+            $data['photo'] = $filename;
+        }
+        else {
+            unset($data['photo']);
         }
 
         return parent::update($id, $data);
