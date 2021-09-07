@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>Products</h1>
+        <v-btn class="mb-3"><router-link :to="{name: 'product.create'}">Create Product</router-link></v-btn>
         <v-simple-table>
             <template v-slot:default>
             <thead>
@@ -28,7 +29,7 @@
                 <td>{{ product.manufacture_year }}</td>
                 <td><img v-if="product.photo && user" :src=" getHost() + '/uploads/products/' + user.id + '/' + product.photo" alt="Product Image" style="max-width: 100px" /></td>
                 <td>
-                    <router-link :to="{name: 'product.edit', params: {id: product.id}}">Edit</router-link>
+                    <v-btn><router-link :to="{name: 'product.edit', params: {id: product.id}}">Edit</router-link></v-btn>
                     <v-btn @click="deleteProduct(product.id)">Delete</v-btn>
                 </td>
                 </tr>
@@ -44,18 +45,7 @@
 
     export default {
         data () {
-            return {
-                desserts: [
-                    {
-                        name: 'Frozen Yogurt',
-                        manufacture_year: 1900,
-                    },
-                    {
-                        name: 'Ice cream sandwich',
-                        manufacture_year: 2021
-                    },
-                ],
-            }
+            return {}
         },
         computed: {
             ...mapGetters('product', [

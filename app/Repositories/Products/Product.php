@@ -22,12 +22,18 @@ class Product extends BaseRepository
         ];
         
         if (isset($data['photo']) && $data['photo'] != 'null') {
+            $path = 'uploads/products';
+
+            if (!is_dir($path)) {
+                File::makeDirectory($path, 0777,true);
+            }
+
             $file = $data['photo'];
             $name = uniqid() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
             $extenion = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
             $filename = $name . '.' . $extenion;
             // Store data
-            Storage::disk(static::$disk)->put("uploads/products/{$data['user_id']}/{$filename}", File::get($file));
+            Storage::disk(static::$disk)->put("{$path}/{$data['user_id']}/{$filename}", File::get($file));
             $data['photo'] = $filename;
         } 
         else {
@@ -46,12 +52,17 @@ class Product extends BaseRepository
         ];
 
         if (isset($data['photo']) && $data['photo'] != 'null') {
+            $path = 'uploads/products';
+
+            if (!is_dir($path)) {
+                File::makeDirectory($path, 0777,true);
+            }
             $file = $data['photo'];
             $name = uniqid() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
             $extenion = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
             $filename = $name . '.' . $extenion;
             // Store data
-            Storage::disk(static::$disk)->put("uploads/products/{$data['user_id']}/{$filename}", File::get($file));
+            Storage::disk(static::$disk)->put("{$path}/{$data['user_id']}/{$filename}", File::get($file));
             $data['photo'] = $filename;
         }
         else {

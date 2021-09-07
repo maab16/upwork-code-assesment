@@ -68,19 +68,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
-      desserts: [{
-        name: 'Frozen Yogurt',
-        manufacture_year: 1900
-      }, {
-        name: 'Ice cream sandwich',
-        manufacture_year: 2021
-      }]
-    };
+    return {};
   },
   computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('product', ['products'])), (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)('auth', ['user'])),
   mounted: function mounted() {
@@ -267,6 +260,17 @@ var render = function() {
     [
       _c("h1", [_vm._v("Products")]),
       _vm._v(" "),
+      _c(
+        "v-btn",
+        { staticClass: "mb-3" },
+        [
+          _c("router-link", { attrs: { to: { name: "product.create" } } }, [
+            _vm._v("Create Product")
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("v-simple-table", {
         scopedSlots: _vm._u([
           {
@@ -322,16 +326,22 @@ var render = function() {
                         "td",
                         [
                           _c(
-                            "router-link",
-                            {
-                              attrs: {
-                                to: {
-                                  name: "product.edit",
-                                  params: { id: product.id }
-                                }
-                              }
-                            },
-                            [_vm._v("Edit")]
+                            "v-btn",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    to: {
+                                      name: "product.edit",
+                                      params: { id: product.id }
+                                    }
+                                  }
+                                },
+                                [_vm._v("Edit")]
+                              )
+                            ],
+                            1
                           ),
                           _vm._v(" "),
                           _c(

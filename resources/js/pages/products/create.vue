@@ -2,7 +2,7 @@
 <template>
     <div>
         <h2 class="title">Create Product</h2>
-        
+        <v-btn class="mb-3"><router-link :to="{name: 'product'}">Products</router-link></v-btn>
         <validation-observer
             ref="observer"
             v-slot="{ invalid }"
@@ -24,7 +24,7 @@
             <validation-provider
                 v-slot="{ errors }"
                 name="manufacture_year"
-                rules="required|between:1900,2021"
+                :rules="'required|between:1900,' + new Date().getFullYear()"
             >
                 <v-text-field
                 v-model="form.manufacture_year"
@@ -58,25 +58,16 @@
 </template>
 
 <script>
-  import { required, digits, email, max, regex, between } from 'vee-validate/dist/rules'
+  import { required, between } from 'vee-validate/dist/rules'
   import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
   import { mapActions } from 'vuex'
 
   setInteractionMode('eager')
 
-  extend('digits', {
-    ...digits,
-    message: '{_field_} needs to be {length} digits. ({_value_})',
-  })
 
   extend('required', {
     ...required,
     message: '{_field_} can not be empty',
-  })
-
-  extend('max', {
-    ...max,
-    message: '{_field_} may not be greater than {length}',
   })
 
   extend('between', {
@@ -84,15 +75,6 @@
     message: '{_field_} must be between 1900 and 2021.',
   })
 
-  extend('regex', {
-    ...regex,
-    message: '{_field_} {_value_} does not match {regex}',
-  })
-
-  extend('email', {
-    ...email,
-    message: 'Email must be valid',
-  })
 
   export default {
     components: {

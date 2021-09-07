@@ -91,23 +91,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 (0,vee_validate__WEBPACK_IMPORTED_MODULE_1__.setInteractionMode)('eager');
-(0,vee_validate__WEBPACK_IMPORTED_MODULE_1__.extend)('digits', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__.digits), {}, {
-  message: '{_field_} needs to be {length} digits. ({_value_})'
-}));
 (0,vee_validate__WEBPACK_IMPORTED_MODULE_1__.extend)('required', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__.required), {}, {
   message: '{_field_} can not be empty'
 }));
-(0,vee_validate__WEBPACK_IMPORTED_MODULE_1__.extend)('max', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__.max), {}, {
-  message: '{_field_} may not be greater than {length}'
-}));
 (0,vee_validate__WEBPACK_IMPORTED_MODULE_1__.extend)('between', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__.between), {}, {
   message: '{_field_} must be between 1900 and 2021.'
-}));
-(0,vee_validate__WEBPACK_IMPORTED_MODULE_1__.extend)('regex', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__.regex), {}, {
-  message: '{_field_} {_value_} does not match {regex}'
-}));
-(0,vee_validate__WEBPACK_IMPORTED_MODULE_1__.extend)('email', _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__.email), {}, {
-  message: 'Email must be valid'
 }));
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -3101,6 +3089,17 @@ var render = function() {
     [
       _c("h2", { staticClass: "title" }, [_vm._v("Create Product")]),
       _vm._v(" "),
+      _c(
+        "v-btn",
+        { staticClass: "mb-3" },
+        [
+          _c("router-link", { attrs: { to: { name: "product" } } }, [
+            _vm._v("Products")
+          ])
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("validation-observer", {
         ref: "observer",
         scopedSlots: _vm._u([
@@ -3156,7 +3155,8 @@ var render = function() {
                     _c("validation-provider", {
                       attrs: {
                         name: "manufacture_year",
-                        rules: "required|between:1900,2021"
+                        rules:
+                          "required|between:1900," + new Date().getFullYear()
                       },
                       scopedSlots: _vm._u(
                         [
