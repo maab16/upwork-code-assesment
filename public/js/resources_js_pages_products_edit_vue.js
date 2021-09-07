@@ -132,8 +132,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             case 3:
               _this.form = _this.product;
+              _this.form.photo = null;
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }

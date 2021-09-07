@@ -96,9 +96,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _this.setProducts();
 
               case 4:
-                _this.deserts = _this.products;
-
-              case 5:
               case "end":
                 return _context.stop();
             }
@@ -271,103 +268,114 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("v-simple-table", {
-        scopedSlots: _vm._u([
-          {
-            key: "default",
-            fn: function() {
-              return [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", { staticClass: "text-left" }, [
-                      _vm._v("\n                Name\n            ")
-                    ]),
-                    _vm._v(" "),
-                    _c("th", { staticClass: "text-left" }, [
-                      _vm._v("\n                Manufacture Year\n            ")
-                    ]),
-                    _vm._v(" "),
-                    _c("th", { staticClass: "text-left" }, [
-                      _vm._v("\n                Photo\n            ")
-                    ]),
-                    _vm._v(" "),
-                    _c("th", { staticClass: "text-left" }, [
-                      _vm._v("\n                Action\n            ")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.products, function(product) {
-                    return _c("tr", { key: product.name }, [
-                      _c("td", [_vm._v(_vm._s(product.name))]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(product.manufacture_year))]),
-                      _vm._v(" "),
-                      _c("td", [
-                        product.photo && _vm.user
-                          ? _c("img", {
-                              staticStyle: { "max-width": "100px" },
-                              attrs: {
-                                src:
-                                  _vm.getHost() +
-                                  "/uploads/products/" +
-                                  _vm.user.id +
-                                  "/" +
-                                  product.photo,
-                                alt: "Product Image"
-                              }
-                            })
-                          : _vm._e()
+      _vm.products.length > 0
+        ? _c("v-simple-table", {
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "default",
+                  fn: function() {
+                    return [
+                      _c("thead", [
+                        _c("tr", [
+                          _c("th", { staticClass: "text-left" }, [
+                            _vm._v("\n                Name\n            ")
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-left" }, [
+                            _vm._v(
+                              "\n                Manufacture Year\n            "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-left" }, [
+                            _vm._v("\n                Photo\n            ")
+                          ]),
+                          _vm._v(" "),
+                          _c("th", { staticClass: "text-left" }, [
+                            _vm._v("\n                Action\n            ")
+                          ])
+                        ])
                       ]),
                       _vm._v(" "),
                       _c(
-                        "td",
-                        [
-                          _c(
-                            "v-btn",
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  attrs: {
-                                    to: {
-                                      name: "product.edit",
-                                      params: { id: product.id }
+                        "tbody",
+                        _vm._l(_vm.products, function(product) {
+                          return _c("tr", { key: product.name }, [
+                            _c("td", [_vm._v(_vm._s(product.name))]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(_vm._s(product.manufacture_year))
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              product.photo && _vm.user
+                                ? _c("img", {
+                                    staticStyle: { "max-width": "100px" },
+                                    attrs: {
+                                      src:
+                                        _vm.getHost() +
+                                        "/uploads/products/" +
+                                        _vm.user.id +
+                                        "/" +
+                                        product.photo,
+                                      alt: "Product Image"
                                     }
-                                  }
-                                },
-                                [_vm._v("Edit")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-btn",
-                            {
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteProduct(product.id)
-                                }
-                              }
-                            },
-                            [_vm._v("Delete")]
-                          )
-                        ],
-                        1
+                                  })
+                                : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              [
+                                _c(
+                                  "v-btn",
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        attrs: {
+                                          to: {
+                                            name: "product.edit",
+                                            params: { id: product.id }
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Edit")]
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.deleteProduct(product.id)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        }),
+                        0
                       )
-                    ])
-                  }),
-                  0
-                )
-              ]
-            },
-            proxy: true
-          }
-        ])
-      })
+                    ]
+                  },
+                  proxy: true
+                }
+              ],
+              null,
+              false,
+              404616009
+            )
+          })
+        : _vm._e()
     ],
     1
   )

@@ -101,6 +101,7 @@
         console.log(this.id)
         await this.setProduct(this.id)
         this.form = this.product
+        this.form.photo = null
     },
     methods: {
         ...mapActions('product', [

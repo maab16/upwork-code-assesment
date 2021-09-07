@@ -17,9 +17,13 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $products = Product::all();
+            $user = Auth::user();
+            $products = $user->products;
 
-            return response()->json($products);
+            return response()->json([
+                'status' => 'success',
+                'data' => $products ?? []
+            ]);
         } catch (\Exception $ex) {
             return response()->json(['status' => 'error', 'data' => $ex->getMessage()]);
         }
@@ -48,7 +52,7 @@ class ProductController extends Controller
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
                 'manufacture_year' => $request->manufacture_year,
-                'photo' => $request->photo
+                'photo' => $request->hasFile('photo') ? $request->photo : null
             ]);
             return response()->json($product);
         } catch (\Exception $ex) {
@@ -98,7 +102,7 @@ class ProductController extends Controller
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
                 'manufacture_year' => $request->manufacture_year,
-                'photo' => $request->photo
+                'photo' => $request->hasFile('photo') ? $request->photo : null
             ]);
             return response()->json($product);
         } catch (\Exception $ex) {

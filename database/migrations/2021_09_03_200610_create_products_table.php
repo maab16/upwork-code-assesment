@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->integer('manufacture_year');
             $table->string('photo')->nullable();
             $table->softDeletes();

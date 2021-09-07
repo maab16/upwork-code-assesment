@@ -2,7 +2,7 @@
     <div>
         <h1>Products</h1>
         <v-btn class="mb-3"><router-link :to="{name: 'product.create'}">Create Product</router-link></v-btn>
-        <v-simple-table>
+        <v-simple-table v-if="products.length > 0">
             <template v-slot:default>
             <thead>
                 <tr>
@@ -69,7 +69,6 @@
             async fetchData() {
                 await this.setUser()
                 await this.setProducts()
-                this.deserts = this.products
             },
             getHost: function() {
                 return location.protocol + '//' + location.host
